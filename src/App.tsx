@@ -4,12 +4,12 @@ import { Route, Switch } from 'react-router';
 import { ToastContainer } from 'react-toastify';
 import styled from 'styled-components';
 import Footer from './components/common/Footer';
-import Header from './components/common/Header';
 import LoginPage from './pages/LoginPage';
 import TodosPage from './pages/TodosPage';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { getUserProfileAction } from 'modules/user/userReducer';
+import HeaderContainer from 'containers/common/HeaderContainer';
 
 function App() {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function App() {
   return (
     <AppBlock>
       <ToastContainer />
-      <Header />
+      <HeaderContainer />
       <Switch>
         <Route path="/todos" component={TodosPage} />
         <Route path="/signup" component={SignupPage} />

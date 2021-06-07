@@ -3,8 +3,13 @@ import styled from 'styled-components';
 import { IoMdAdd } from 'react-icons/io';
 import Input from 'components/common/Input';
 import Button from 'components/common/Button';
+import { IAddTodo } from 'modules/todos/types';
+import useInputs from 'hooks/useInputs';
+import NotifyUtils from 'utils/NotifyUtils';
 
-interface TodoFormProps {}
+interface TodoFormProps {
+  onAddTodo: (todo: IAddTodo) => void;
+}
 
 const TodoFormBlock = styled.div`
   form {
@@ -34,11 +39,26 @@ const TodoFormBlock = styled.div`
   }
 `;
 
-const TodoForm: React.FC<TodoFormProps> = () => {
+const TodoForm: React.FC<TodoFormProps> = ({ onAddTodo }) => {
+  const [inputs, onChange, onReset] = useInputs({ content: '' });
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (inputs.content === '') return NotifyUtils.error('content is empty');
+
+    onAddTodo(inputs);
+
+    onReset();
+  };
   return (
     <TodoFormBlock>
-      <form>
-        <Input placeholder="Enter to do" />
+      <form onSubmit={onSubmit}>
+        <Input
+          name="content"
+          value={inputs.content}
+          onChange={onChange}
+          placeholder="Enter to do"
+        />
         <Button>
           <IoMdAdd />
         </Button>

@@ -4,16 +4,27 @@ import {
   loginSuccessAction,
   getUserProfileAction,
   getUserProfileSuccessAction,
+  logoutAction,
+  logoutSuccessAction,
 } from './userReducer';
 
-export interface UserState {}
+export interface UserState {
+  profile: IUserProfile | null;
+}
+
+interface IUserProfile {
+  id: number;
+  username: string;
+}
 
 export type UserAction =
   | ReturnType<typeof loginAction>
   | ReturnType<typeof postUserAction>
   | ReturnType<typeof loginSuccessAction>
   | ReturnType<typeof getUserProfileAction>
-  | ReturnType<typeof getUserProfileSuccessAction>;
+  | ReturnType<typeof getUserProfileSuccessAction>
+  | ReturnType<typeof logoutAction>
+  | ReturnType<typeof logoutSuccessAction>;
 
 export interface ILoginForm {
   username: string;

@@ -12,7 +12,9 @@ function useInputs<T>(initialState: T) {
     },
     [inputs]
   );
-  return [inputs, onChange] as [T, () => void];
+
+  const onReset = () => setInputs(initialState);
+  return [inputs, onChange, onReset] as [T, () => void, () => void];
 }
 
 export default useInputs;
